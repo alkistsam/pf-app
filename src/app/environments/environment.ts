@@ -1,3 +1,3 @@
 export const environment = {
-    disneyUrl: 'https://api.disneyapi.dev/'
-  };
+  disneyUrl: 'https://api.disneyapi.dev/',
+}
