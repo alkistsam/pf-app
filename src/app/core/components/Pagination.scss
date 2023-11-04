@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .pagination-info {
+    display: flex;
+    align-items: center;
+    margin: 0 1rem;
+  }
+  
+  .pagination-content span {
+    margin-right: 0.5rem;
+  }
+  
+  .pagination-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0.5rem;
+  }
+  
+  .pagination-arrow-button {
+    background-color: #12194a;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  
+  .pagination-arrow-button:disabled {
+    background-color: #efbeb7;
+    padding: 0.5rem 1rem;
+    cursor: not-allowed;
+  }
+
+  .dropdown-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .disney-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .disney-list li {
+    padding: 0.5rem 1rem;
+    border: 1px solid #b12228;
+    background-color: #f3cc64;
+    color: #12194a;
+    cursor: pointer;
+  }
+  
+  .disney-list li.selected {
+    background-color: #b12228;
+    color: #ffffff;
+  }
