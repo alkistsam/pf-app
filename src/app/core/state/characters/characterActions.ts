@@ -1,7 +1,7 @@
 import { Character, FetchCharactersRequestAction } from '../../../shared/interfaces/interfaces'
 import { CharacterActionType, DisneyError } from '../../../shared/types/types'
 
-export const fetchCharactersRequest = ():  FetchCharactersRequestAction => ({
+export const fetchCharactersRequest = (): FetchCharactersRequestAction => ({
   type: CharacterActionType.FETCH_CHARACTERS_REQUEST,
 })
 
@@ -18,4 +18,4 @@ export const fetchCharactersFailure = (error: DisneyError) => ({
 export const sortCharacters = (characters: Character[]) => ({
   type: CharacterActionType.SORT_CHARACTERS,
   payload: characters,
-});
+})

@@ -1,10 +1,12 @@
 import './App.css'
-import CharacterTable from "./app/core/components/CharacterTable";
+import CharacterTable from './app/core/components/CharacterTable'
 
 function App() {
-  return <>      
-  <CharacterTable/>
-  </>
+  return (
+    <>
+      <CharacterTable />
+    </>
+  )
 }
 
 export default App
