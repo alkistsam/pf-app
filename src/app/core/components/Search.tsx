@@ -1,44 +1,43 @@
-import React, { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../state/hooks'
-import { DisneyApiService } from '../services/disneyAPI'
-import './Search.scss'
-import { RootState } from '../state'
+import React, { useCallback, useMemo, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../state/hooks';
+import { DisneyApiService } from '../services/disneyAPI';
+import './Search.scss';
+import { RootState } from '../state';
+import { debounce } from "lodash";
+import { SearchComponentProps } from '../../shared/interfaces/interfaces';
 
-interface SearchComponentProps {
-  placeholder: string
-  onSearch: (value: string) => void
-  searchType: string
-}
 
-const SearchComponent: React.FC<SearchComponentProps> = ({ placeholder, onSearch, searchType }) => {
-  const dispatch = useAppDispatch()
-  const [searchValue, setSearchValue] = useState('')
-  const apiService = new DisneyApiService()
-  const paginationState = useAppSelector((state: RootState) => state.pagination)
-  const page = paginationState.currentPage
-  const pageSize = paginationState.pageSize
+const SearchComponent: React.FC<SearchComponentProps> = ({ placeholder, onSearch,searchType }) => {
+  const dispatch = useAppDispatch();
+  const [searchValue, setSearchValue] = useState('');
+  const apiService = useMemo(() => new DisneyApiService(), []);
+  const characterSearchState = useAppSelector((state: RootState) => state.characterSearch);
+  const page = characterSearchState.currentPage;
+  const pageSize = characterSearchState.pageSize;
 
-  const handleSearch = () => {
-    onSearch(searchValue)
-    apiService.searchCharacters(dispatch, searchType, searchValue)
-  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceSearch = useCallback(debounce((searchVal) => {
+    if (searchVal === '') {
+      onSearch(searchVal);
+      apiService.getCharacters(dispatch, page, pageSize, '', page);
+    } else {
+      onSearch(searchVal);
+      apiService.searchCharacters(dispatch, searchType, searchVal, page, pageSize);
+    }
+  }, 200), [dispatch, apiService, page, pageSize, searchType]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setSearchValue(value)
-    if (value === '') {
-      apiService.getCharacters(dispatch, page, pageSize)
-    } else {
-      apiService.searchCharacters(dispatch, searchType, value)
-    }
-  }
+    const value = event.target.value;
+    setSearchValue(value);
+    debounceSearch(value);
+  };
 
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleSearch()
-    }
-  }
-
+  React.useEffect(() => {
+  return () => {
+    debounceSearch.cancel();
+  };
+}, [debounceSearch]);
   return (
     <div className="search-container">
       <input
@@ -46,11 +45,9 @@ const SearchComponent: React.FC<SearchComponentProps> = ({ placeholder, onSearch
         placeholder={placeholder}
         value={searchValue}
         onChange={handleInputChange}
-        onKeyUp={handleKeyUp}
       />
-      <button onClick={handleSearch}>Search</button>
     </div>
   )
 }
 
-export default SearchComponent
+export default SearchComponent;

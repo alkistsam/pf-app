@@ -1,60 +1,65 @@
-import { environment } from '../../environments/environment'
-import axios from 'axios'
-import { fetchCharactersRequest } from '../state/characters/characterActions'
-import { CharacterActionType, CharacterActionTypes, DisneyError } from '../../shared/types/types'
-import { Dispatch } from 'redux'
-
+import axios from 'axios';
+import { Dispatch } from 'redux';
+import { environment } from '../../environments/environment';
+import { CharactersData } from '../../shared/interfaces/interfaces';
+import { fetchCharactersFailure, fetchCharactersRequest, fetchCharactersSuccess, updateSearchType, updateSearchValue } from '../state/characters/sliceCharacters';
 export class DisneyApiService {
-  private baseUrl: string
+  private baseUrl: string;
 
   constructor() {
-    this.baseUrl = environment.disneyUrl
+    this.baseUrl = environment.disneyUrl;
   }
 
-  async getCharacters(dispatch: Dispatch<CharacterActionTypes>, page: number, pageSize: number) {
+  async getCharacters(dispatch: Dispatch, page: number, pageSize: number, searchValue: string, currentPage: number) {
+    dispatch(fetchCharactersRequest({searchValue: searchValue, currentPage:currentPage}));
     try {
-      dispatch(fetchCharactersRequest())
-      const response = await axios.get(`${this.baseUrl}character?page=${page}&pageSize=${pageSize}`)
-      dispatch({
-        type: CharacterActionType.FETCH_CHARACTERS_SUCCESS,
-        payload: response.data,
-      })
+      const url = `${this.baseUrl}character?page=${page}&pageSize=${pageSize}`;
+      const response = await axios.get(url);
+      const charactersData: CharactersData = response.data;
+      dispatch(fetchCharactersSuccess(charactersData));
     } catch (error) {
-      console.error('Error fetching Disney characters:', error)
-      const customError: DisneyError = { message: error as string, code: 0 }
-      dispatch({
-        type: CharacterActionType.FETCH_CHARACTERS_FAILURE,
-        payload: customError.message,
-      })
+      console.error('Error fetching Disney characters:', error);
+      let errorMessage = 'Error fetching Disney characters';
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data.message || errorMessage;
+      }
+      dispatch(fetchCharactersFailure(errorMessage));
     }
   }
 
+
   async searchCharacters(
-    dispatch: Dispatch<CharacterActionTypes>,
+    dispatch: Dispatch,
     searchType: string,
     searchValue: string,
+    page: number,
+    pageSize: number
   ) {
-    try {
-      dispatch(fetchCharactersRequest())
-      const formattedSearchValue = searchValue.trim().replace(/\s/g, '%20')
-      let url = `${this.baseUrl}character`
+    dispatch(updateSearchType(searchType));
+    dispatch(updateSearchValue(searchValue));
+  
+    const url = `${this.baseUrl}character`;
+    const formattedSearchValue = searchValue.trim().replace(/\s/g, '%20');
+  
+    const queryParams = new URLSearchParams({ page: String(page), pageSize: String(pageSize) });
+    if (searchValue) {
       if (searchType === 'name') {
-        url += `?name=${formattedSearchValue}`
+        queryParams.set('name', formattedSearchValue);
       } else if (searchType === 'tvShow') {
-        url += `?tvShows_like=${formattedSearchValue}`
+        queryParams.set('tvShows', formattedSearchValue);
       }
-      const response = await axios.get(url)
-      dispatch({
-        type: CharacterActionType.FETCH_CHARACTERS_SUCCESS,
-        payload: response.data,
-      })
+    }
+
+    try {
+      const response = await axios.get(`${url}?${queryParams}`);
+      dispatch(fetchCharactersSuccess(response.data));
     } catch (error) {
-      console.error('Error searching Disney characters:', error)
-      const customError: DisneyError = { message: error as string, code: 0 }
-      dispatch({
-        type: CharacterActionType.FETCH_CHARACTERS_FAILURE,
-        payload: customError.message,
-      })
+      console.error('Error searching Disney characters:', error);
+      let errorMessage = 'Error searching Disney characters';
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data.message || errorMessage;
+      }
+      dispatch(fetchCharactersFailure(errorMessage));
     }
   }
 }

@@ -1,11 +1,9 @@
-import { combineReducers } from 'redux'
-import charactersReducer from './characters/characterReducers'
-import { paginationReducer } from './pagination/slicePagination'
+import { combineReducers } from 'redux';
+import characterSearchReducer from './characters/sliceCharacters';
 
 const rootReducer = combineReducers({
-  characters: charactersReducer,
-  pagination: paginationReducer,
-})
+  characterSearch: characterSearchReducer,
+});
 
-export type RootState = ReturnType<typeof rootReducer>
-export default rootReducer
+export type RootState = ReturnType<typeof rootReducer>;
+export default rootReducer;

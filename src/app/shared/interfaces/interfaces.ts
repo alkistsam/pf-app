@@ -1,5 +1,3 @@
-import { CharacterActionType } from '../types/types'
-
 export interface Character {
   _id: number
   films: string[]
@@ -28,30 +26,30 @@ export interface CharactersData {
   data: Character[]
 }
 
+export interface CharacterSearchState {
+  characters: CharactersData | null;
+  loading: boolean;
+  error: string | null;
+  characterSearchValue: string;
+  currentPage: number;
+  pageSize: number;
+  totalPages: number;
+  totalCount: number;
+  previousPage: string | null;
+  nextPage: string | null;
+  paginationSearchValue: string;
+  searchType: string;
+  searchValue: string
+}
+
 export interface CharacterState {
+  characterSearchValue: unknown
   characters: CharactersData | null
   loading: boolean
   error: string | null
+  searchValue?: string
+  searchType? : string
 }
-
-export interface FetchCharactersRequestAction {
-  type: CharacterActionType.FETCH_CHARACTERS_REQUEST
-}
-export interface SortCharactersAction {
-  type: CharacterActionType.SORT_CHARACTERS
-  payload: string
-}
-
-export interface FetchCharactersSuccessAction {
-  type: CharacterActionType.FETCH_CHARACTERS_SUCCESS
-  payload: Character[]
-}
-
-export interface FetchCharactersFailureAction {
-  type: CharacterActionType.FETCH_CHARACTERS_FAILURE
-  payload: string
-}
-
 export interface PaginationState {
   currentPage: number
   pageSize: number
@@ -59,4 +57,12 @@ export interface PaginationState {
   totalCount: number
   previousPage: string | null
   nextPage: string | null
+  searchValue: string
+  searchType: string
+}
+
+export interface SearchComponentProps {
+  placeholder: string
+  onSearch: (value: string) => void
+  searchType: string
 }
