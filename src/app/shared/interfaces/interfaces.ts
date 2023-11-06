@@ -27,18 +27,18 @@ export interface CharactersData {
 }
 
 export interface CharacterSearchState {
-  characters: CharactersData | null;
-  loading: boolean;
-  error: string | null;
-  characterSearchValue: string;
-  currentPage: number;
-  pageSize: number;
-  totalPages: number;
-  totalCount: number;
-  previousPage: string | null;
-  nextPage: string | null;
-  paginationSearchValue: string;
-  searchType: string;
+  characters: CharactersData | null
+  loading: boolean
+  error: string | null
+  characterSearchValue: string
+  currentPage: number
+  pageSize: number
+  totalPages: number
+  totalCount: number
+  previousPage: string | null
+  nextPage: string | null
+  paginationSearchValue: string
+  searchType: string
   searchValue: string
 }
 
@@ -48,7 +48,7 @@ export interface CharacterState {
   loading: boolean
   error: string | null
   searchValue?: string
-  searchType? : string
+  searchType?: string
 }
 export interface PaginationState {
   currentPage: number
