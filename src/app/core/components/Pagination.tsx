@@ -11,11 +11,9 @@ import {
   updateTotalPages,
 } from '../state/characters/sliceCharacters'
 import { DisneyApiService } from '../services/disneyAPI'
+import { PaginationProps } from '../../shared/interfaces/interfaces'
 
-interface SearchComponentProps {
-  searchValue: string
-}
-const Pagination: React.FC<SearchComponentProps> = ({ searchValue }) => {
+const Pagination: React.FC<PaginationProps> = ({ searchValue }) => {
   const dispatch = useAppDispatch()
   const characterSearchState = useAppSelector((state: RootState) => state.characterSearch)
   const apiService = new DisneyApiService()
@@ -89,7 +87,9 @@ const Pagination: React.FC<SearchComponentProps> = ({ searchValue }) => {
             <ArrowRightIcon fontSize="small" />
           </button>
         </div>
-        <p>Total Pages: {characterSearchState.characters?.info?.totalPages}</p>
+        <p className="total-pages">
+          Total Pages: {characterSearchState.characters?.info?.totalPages}
+        </p>
       </div>
       <div className="items-container">
         <span>Items per Page: </span>

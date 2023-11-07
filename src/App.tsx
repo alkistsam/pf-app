@@ -1,4 +1,4 @@
-import './App.css'
+import './App.scss'
 import CharacterTable from './app/core/components/CharacterTable'
 
 function App() {

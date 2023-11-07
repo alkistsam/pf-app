@@ -1,21 +1,7 @@
-.search-container {
-    padding: 0.5rem;
-    border-radius: 5px;
-  
-    input {
-      padding: 0.5rem;
-      margin-right: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-    }
-  
-    button {
-      background-color: #b12228;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+@import '../../../styles//variables.scss';
+
+input {
+    padding:$padding-half;
+    border-radius: $border-radius-base;
+    border: 1px solid $color-border;
   }
-  

@@ -36,6 +36,7 @@ export class DisneyApiService {
         errorMessage = error.response.data.message || errorMessage
       }
       dispatch(fetchCharactersFailure(errorMessage))
+      throw error
     }
   }
 

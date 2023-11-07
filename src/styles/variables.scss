@@ -1,0 +1,39 @@
+// Colors
+$color-gold: #f3cc64;
+$color-maroon: rgb(177, 34, 40);
+$color-dark: hsl(0 0% 0% / 0.5);
+$color-dark-transparent: hsl(0 0% 0% / 0.1);
+$color-light-gold: #f8c12f;
+$color-dark-gold: #eaba0e;
+$color-navy: #12194a;
+$color-navy-light: rgba(18, 25, 74, 0.8);
+$color-navy-darker: #393e8f;
+$color-white: #ffffff;
+$color-dark-red: #b12228;
+$color-disabled: #efbeb7;
+$color-border: #ddd;
+$color-black: #000000;
+
+// Typography
+$font-stack: 'Helvetica Neue', sans-serif;
+$font-weight-bold: 700;
+$font-size-large: 1.5rem;
+$font-size-small: 1rem;
+
+// Spacing
+$padding-base: 1rem;
+$padding-half: 0.5rem;
+$padding-medium: 1.5rem;
+$padding-double: 2rem;
+$margin-base: 1rem;
+$margin-half: 0.5rem;
+$margin-medium: 1.5rem;
+$margin-double: 2rem;
+
+// Borders
+$border-radius-base: 5px;
+$border-radius-circle: 24px;
+
+// Shadows
+$shadow-base: 0 4px 8px rgba(0, 0, 0, 0.1);
+$shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);

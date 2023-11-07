@@ -39,7 +39,6 @@ const characterSearchSlice = createSlice({
       state.characters = action.payload
       state.loading = false
       state.error = null
-      console.log('Payload received in fetchCharactersSuccess:', action.payload)
     },
     fetchCharactersFailure: (state, action: PayloadAction<string>) => {
       state.loading = false

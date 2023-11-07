@@ -65,4 +65,27 @@ export interface SearchComponentProps {
   placeholder: string
   onSearch: (value: string) => void
   searchType: string
+  value: string
+  onFocus?: () => void
+}
+
+export interface PaginationProps {
+  searchValue: string
+}
+export interface ModalProps {
+  show: boolean
+  onClose: () => void
+  character: Character | null
+}
+
+export interface PieProps {
+  isOpen: boolean
+  onClose: () => void
+  character: Character[]
+}
+
+export interface ExtendedPoint {
+  name: string
+  y: number
+  extra: number
 }

@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -24,12 +26,12 @@
   }
   
   .pagination-arrow-button {
-    background-color: #12194a;
-    color: #ffffff;
+    background-color: $color-navy;
+    color: $color-white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: $padding-half $padding-base;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: $border-radius-base;
     width: 50px;
     height: 25px;
     display: flex;
@@ -38,8 +40,8 @@
 
   
   .pagination-arrow-button:disabled {
-    background-color: #efbeb7;
-    padding: 0.5rem 1rem;
+    background-color: $color-disabled;
+    padding: padding-half $padding-base;
     cursor: not-allowed;
   }
 
@@ -56,15 +58,39 @@
   }
   
   .disney-list li {
-    padding: 0.5rem 1rem;
-    border: 1px solid #b12228;
-    background-color: #f3cc64;
-    color: #12194a;
+    padding: $padding-half $padding-base;
+    border: 1px solid $color-dark-red;
+    background-color: $color-gold;
+    color: $color-navy;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: $border-radius-base;
   }
   
   .disney-list li.selected {
-    background-color: #b12228;
-    color: #ffffff;
+    background-color: $color-dark-red;
+    color: $color-white;
   }
+
+  @media (max-width: 920px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+    .pagination-container {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .total-pages {
+      flex-basis: 100%;
+      padding-right: $padding-base;
+      text-align: center;
+    }
+    span {
+      font-size: $font-size-small;
+    }
+
+    .items-container {
+      flex-direction: column;
+      gap: 0;
+    }
+}

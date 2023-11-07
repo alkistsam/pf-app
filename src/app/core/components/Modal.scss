@@ -1,0 +1,99 @@
+@import '../../../styles/variables.scss';
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-navy-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 10px;
+  
+  .modal-content {
+    background: $color-white;
+    border-radius: 8px;
+    max-width: 500px;
+    max-height: 500px;
+    width: 100%;
+    overflow-y: auto;
+    box-shadow:$shadow-base;
+    animation: slideIn .3s ease-out;
+    overflow-x: auto;
+  }
+  
+  .modal-header {
+    background-color: $color-navy-darker;
+    padding: 16px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: $color-white;
+  }
+  
+  .modal-title {
+    margin: 0;
+    color: $color-gold;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    color: $color-navy;
+    line-height: 1.6;
+  }
+  
+  .character-img {
+    border-radius: 4px;
+    box-shadow: $shadow-small;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  h5 {
+    color: $color-dark-red;
+    margin-top: 20px;
+  }
+  
+  ul {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+  
+  li {
+    margin-bottom: 5px;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(20vh);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .modal-content {
+      border-radius: 0%;
+    }
+  
+    .modal-header,
+    .modal-body {
+      padding: 12px;
+    }
+  }
+    .modal-content {
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  .modal-dialog {
+    margin: 0 auto;
+    max-width: none;
+  }
+}
